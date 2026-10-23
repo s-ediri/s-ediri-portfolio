@@ -1,0 +1,159 @@
+:root {
+  --toggle-speed: 0.5s;
+  --toggle-easing: cubic-bezier(0.4, -0.3, 0.6, 1.3);
+}
+
+html {
+  color-scheme: light;
+}
+
+html[data-dark-mode=true] {
+  color-scheme: dark;
+}
+
+.toggle {
+  position: relative;
+  aspect-ratio: 8 / 3;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  border-radius: 100vh;
+  background: #4b9fc2;
+  box-shadow: 0 2px 5px rgb(20 30 40 / 25%) inset, 0 2px 5px #fff;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--toggle-speed) var(--toggle-easing);
+}
+
+.toggle[aria-pressed=true] {
+  --dark: 1;
+  background: #303951;
+}
+
+.toggle::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 2px 5px rgb(20 30 40 / 30%) inset;
+  content: "";
+  pointer-events: none;
+}
+
+.toggle__content {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  container-type: inline-size;
+}
+
+.toggle__backdrop {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: visible;
+  translate: 0 calc(var(--dark, 0) * 55%);
+  transition: translate var(--toggle-speed) var(--toggle-easing);
+}
+
+.toggle__backdrop:first-of-type .clouds path:first-of-type {
+  fill: rgb(255 255 255 / 55%);
+}
+
+.stars path {
+  scale: calc(0.25 + var(--dark, 0) * 0.75);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: scale var(--toggle-speed) var(--toggle-easing);
+}
+
+.stars path:nth-child(odd) {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.toggle__indicator-wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.toggle__indicator {
+  display: grid;
+  width: 37.5%;
+  height: 100%;
+  place-items: center;
+  padding: 3%;
+  translate: calc(var(--dark, 0) * (100cqi - 100%)) 0;
+  transition: translate var(--toggle-speed) var(--toggle-easing);
+}
+
+.toggle__star {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.sun,
+.moon {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.sun {
+  overflow: hidden;
+  background: #f8cf55;
+  box-shadow: 2px 2px 6px #fff inset, -2px -2px 6px rgb(0 0 0 / 30%) inset;
+}
+
+.moon {
+  background: #d3d8e0;
+  box-shadow: 2px 2px 6px #fff inset, -2px -2px 6px rgb(0 0 0 / 45%) inset;
+  translate: calc((1 - var(--dark, 0)) * 100%) 0;
+  transition: translate var(--toggle-speed) ease-in-out;
+}
+
+.moon__crater {
+  position: absolute;
+  top: calc(var(--y) * 1%);
+  left: calc(var(--x) * 1%);
+  width: calc(var(--size) * 1%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #aeb7c4;
+}
+
+.moon__crater:nth-child(1) {
+  --size: 18;
+  --x: 40;
+  --y: 15;
+}
+
+.moon__crater:nth-child(2) {
+  --size: 20;
+  --x: 65;
+  --y: 58;
+}
+
+.moon__crater:nth-child(3) {
+  --size: 34;
+  --x: 18;
+  --y: 40;
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle,
+  .toggle *,
+  .toggle *::before,
+  .toggle *::after {
+    animation: none;
+    transition: none;
+  }
+}
