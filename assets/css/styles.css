@@ -160,6 +160,52 @@ p {
   z-index: 1;
 }
 
+.hero-greeting {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 18px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface-muted);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 5%);
+  color: var(--ink);
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-size: clamp(16px, 2.5vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.hero-greeting-name {
+  color: var(--accent);
+}
+
+.hero-greeting--intro {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  display: block;
+  margin: 0;
+  padding: 16px;
+  border-radius: 0;
+  font-size: clamp(16px, 7vw, 84px);
+  animation: none;
+}
+
+.hero-greeting--intro .hero-greeting-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .eyebrow {
   margin: 0 0 24px;
   color: var(--muted);
@@ -190,7 +236,7 @@ p {
 
 .hero h1 {
   margin-bottom: 22px;
-  font-size: clamp(48px, 6.1vw, 78px);
+  font-size: clamp(42px, 5vw, 64px);
   line-height: 1.08;
 }
 
@@ -898,7 +944,7 @@ p {
   }
 
   .hero h1 {
-    font-size: clamp(45px, 12vw, 64px);
+    font-size: clamp(38px, 10vw, 54px);
   }
 
   .hero-intro {
