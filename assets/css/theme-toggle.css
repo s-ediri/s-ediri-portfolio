@@ -65,6 +65,10 @@ html[data-dark-mode=true] {
   fill: rgb(255 255 255 / 55%);
 }
 
+.toggle[aria-pressed=true] .toggle__backdrop--stars {
+  translate: 0 0;
+}
+
 .stars path {
   scale: calc(0.25 + var(--dark, 0) * 0.75);
   transform-box: fill-box;
