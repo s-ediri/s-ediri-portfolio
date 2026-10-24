@@ -1,9 +1,8 @@
 const themeToggle = document.querySelector("[data-theme-toggle]");
 const themeStorageKey = "s-ediri-portfolio-theme";
 const themeRoot = document.documentElement;
-const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-let isDarkTheme = prefersDark.matches;
+let isDarkTheme = true;
 
 try {
   const savedTheme = window.localStorage.getItem(themeStorageKey);
