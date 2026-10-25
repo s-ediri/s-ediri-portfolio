@@ -1,13 +1,12 @@
-const greeting = document.querySelector(".hero-greeting");
+const greeting = document.querySelector(".site-shell .hero-greeting");
+const intro = document.querySelector("[data-hero-intro]");
 
 if (
   greeting
+  && intro
   && !window.matchMedia("(prefers-reduced-motion: reduce)").matches
   && typeof Element.prototype.animate === "function"
 ) {
-  const destination = greeting.getBoundingClientRect();
-  const destinationStyle = window.getComputedStyle(greeting);
-  const intro = greeting.cloneNode(true);
   const introText = intro.querySelector(".hero-greeting-text");
   const introTextAnimationOptions = {
     duration: 1800,
@@ -15,50 +14,9 @@ if (
     fill: "forwards",
   };
   const root = document.documentElement;
-  const previousOverflow = root.style.overflow;
-  const previousBodyPaddingRight = document.body.style.paddingRight;
-  const scrollbarWidth = window.innerWidth - root.clientWidth;
-  const bodyPaddingRight = Number.parseFloat(
-    window.getComputedStyle(document.body).paddingRight,
-  );
-
-  intro.classList.add("hero-greeting--intro");
-  intro.setAttribute("aria-hidden", "true");
-  introText.style.clipPath = "circle(0% at 50% 50%)";
-  intro.style.visibility = "hidden";
-  document.body.append(intro);
 
   let hasStarted = false;
-  let hasRevealed = false;
   let startTimer;
-  let waveTimer;
-  const revealIntro = () => {
-    if (hasRevealed) {
-      return;
-    }
-
-    hasRevealed = true;
-    window.clearTimeout(waveTimer);
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${bodyPaddingRight + scrollbarWidth}px`;
-    }
-    root.style.overflow = "hidden";
-    greeting.style.visibility = "hidden";
-    intro.style.visibility = "visible";
-
-    introText.animate(
-      [
-        { clipPath: "circle(0% at 50% 50%)" },
-        { clipPath: "circle(150% at 50% 50%)" },
-      ],
-      {
-        duration: 1500,
-        easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-        fill: "forwards",
-      },
-    );
-  };
-
   const startIntro = () => {
     if (hasStarted) {
       return;
@@ -67,8 +25,9 @@ if (
     hasStarted = true;
     window.clearTimeout(startTimer);
     document.removeEventListener("click", startIntro);
-    revealIntro();
 
+    const destination = greeting.getBoundingClientRect();
+    const destinationStyle = window.getComputedStyle(greeting);
     const animation = intro.animate(
       [
         {
@@ -79,6 +38,10 @@ if (
           padding: "16px",
           borderRadius: "0px",
           fontSize: "clamp(16px, 7vw, 84px)",
+          backgroundColor: "#292f30",
+          borderColor: "#292f30",
+          boxShadow: "none",
+          color: "#fff",
         },
         {
           top: `${destination.top}px`,
@@ -88,6 +51,9 @@ if (
           padding: destinationStyle.padding,
           borderRadius: destinationStyle.borderRadius,
           fontSize: destinationStyle.fontSize,
+          backgroundColor: destinationStyle.backgroundColor,
+          borderColor: destinationStyle.borderColor,
+          boxShadow: destinationStyle.boxShadow,
         },
       ],
       introTextAnimationOptions,
@@ -111,13 +77,10 @@ if (
 
     animation.addEventListener("finish", () => {
       intro.remove();
-      greeting.style.visibility = "";
-      root.style.overflow = previousOverflow;
-      document.body.style.paddingRight = previousBodyPaddingRight;
+      root.classList.remove("hero-intro-active");
     });
   };
 
   document.addEventListener("click", startIntro);
-  waveTimer = window.setTimeout(revealIntro, 500);
   startTimer = window.setTimeout(startIntro, 2000);
 }

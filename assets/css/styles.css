@@ -194,9 +194,26 @@ p {
   display: block;
   margin: 0;
   padding: 16px;
+  border-color: #292f30;
   border-radius: 0;
+  background: #292f30;
+  box-shadow: none;
+  color: #fff;
   font-size: clamp(16px, 7vw, 84px);
   animation: none;
+  pointer-events: none;
+}
+
+.hero-intro-active .site-shell .hero-greeting {
+  visibility: hidden;
+}
+
+.hero-greeting--intro {
+  visibility: hidden;
+}
+
+.hero-intro-active .hero-greeting--intro {
+  visibility: visible;
 }
 
 .hero-greeting--intro .hero-greeting-text {
@@ -204,6 +221,17 @@ p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  clip-path: circle(0% at 50% 50%);
+}
+
+.hero-intro-active .hero-greeting--intro .hero-greeting-text {
+  animation: hero-intro-wave 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes hero-intro-wave {
+  to {
+    clip-path: circle(150% at 50% 50%);
+  }
 }
 
 .eyebrow {
