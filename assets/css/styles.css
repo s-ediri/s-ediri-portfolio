@@ -720,6 +720,7 @@ p {
 
 .track-dot {
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 15px;
@@ -727,6 +728,54 @@ p {
   border: 4px solid #f8f3eb;
   border-radius: 50%;
   background: #414b3f;
+  cursor: grab;
+  touch-action: none;
+  transition: transform 180ms ease-out;
+}
+
+.project-card:hover .track-dot,
+.project-card:focus-within .track-dot {
+  transform: scale(1.55);
+}
+
+.track-dot:active {
+  cursor: grabbing;
+}
+
+.track-dot:focus-visible {
+  outline: 2px solid #414b3f;
+  outline-offset: 4px;
+}
+
+.track-control {
+  position: absolute;
+  z-index: 2;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  padding: 0 0 0 2px;
+  border: 1px solid rgb(65 75 63 / 35%);
+  border-radius: 50%;
+  background: rgb(248 243 235 / 85%);
+  color: #414b3f;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.track-control[aria-pressed="true"] {
+  padding-left: 0;
+}
+
+.track-control:hover {
+  background: #f8f3eb;
+}
+
+.track-control:focus-visible {
+  outline: 2px solid #414b3f;
+  outline-offset: 3px;
 }
 
 .f1-mark {
