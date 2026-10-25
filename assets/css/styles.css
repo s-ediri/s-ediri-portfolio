@@ -570,6 +570,20 @@ p {
   height: 30%;
   border-radius: 4px;
   background: #647f6b;
+  transform: scaleY(0.7);
+  transform-origin: center;
+  animation: waveform-drift 3.6s ease-in-out infinite;
+  animation-delay: -400ms;
+  transition: scale 180ms ease-out;
+  scale: 1 calc(1 + var(--pointer-energy, 0) + var(--click-energy, 0));
+}
+
+.waveform i:nth-child(3n) {
+  animation-delay: -1.2s;
+}
+
+.waveform i:nth-child(3n + 1) {
+  animation-delay: -2s;
 }
 
 .waveform i:nth-child(3n) {
@@ -583,6 +597,17 @@ p {
 
 .waveform i:nth-child(5n) {
   height: 92%;
+}
+
+@keyframes waveform-drift {
+  0%,
+  100% {
+    transform: scaleY(0.55);
+  }
+
+  50% {
+    transform: scaleY(1.15);
+  }
 }
 
 .piano-keys {
@@ -1089,5 +1114,11 @@ html:not([data-dark-mode=true]) .skill-list span {
     animation-duration: 0.01ms;
     animation-iteration-count: 1;
     transition-duration: 0.01ms;
+  }
+
+  .waveform i {
+    animation: none;
+    transform: none;
+    transition: none;
   }
 }

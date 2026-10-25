@@ -24,15 +24,41 @@ if (
 
   intro.classList.add("hero-greeting--intro");
   intro.setAttribute("aria-hidden", "true");
-  if (scrollbarWidth > 0) {
-    document.body.style.paddingRight = `${bodyPaddingRight + scrollbarWidth}px`;
-  }
-  root.style.overflow = "hidden";
-  greeting.style.visibility = "hidden";
+  introText.style.clipPath = "circle(0% at 50% 50%)";
+  intro.style.visibility = "hidden";
   document.body.append(intro);
 
   let hasStarted = false;
+  let hasRevealed = false;
   let startTimer;
+  let waveTimer;
+  const revealIntro = () => {
+    if (hasRevealed) {
+      return;
+    }
+
+    hasRevealed = true;
+    window.clearTimeout(waveTimer);
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${bodyPaddingRight + scrollbarWidth}px`;
+    }
+    root.style.overflow = "hidden";
+    greeting.style.visibility = "hidden";
+    intro.style.visibility = "visible";
+
+    introText.animate(
+      [
+        { clipPath: "circle(0% at 50% 50%)" },
+        { clipPath: "circle(150% at 50% 50%)" },
+      ],
+      {
+        duration: 1500,
+        easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+        fill: "forwards",
+      },
+    );
+  };
+
   const startIntro = () => {
     if (hasStarted) {
       return;
@@ -41,6 +67,7 @@ if (
     hasStarted = true;
     window.clearTimeout(startTimer);
     document.removeEventListener("click", startIntro);
+    revealIntro();
 
     const animation = intro.animate(
       [
@@ -91,5 +118,6 @@ if (
   };
 
   document.addEventListener("click", startIntro);
-  startTimer = window.setTimeout(startIntro, 1000);
+  waveTimer = window.setTimeout(revealIntro, 500);
+  startTimer = window.setTimeout(startIntro, 2000);
 }
