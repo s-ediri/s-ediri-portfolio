@@ -634,9 +634,38 @@ p {
 
 .truews-mark {
   position: absolute;
+  z-index: 1;
+  display: grid;
+  width: 108px;
+  height: 108px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgb(80 103 79 / 45%);
+  border-radius: 50%;
+  background: #f4eadb;
   color: #50674f;
+  box-shadow: 0 7px 0 #a99c86, 0 10px 18px rgb(66 59 46 / 18%);
+  cursor: pointer;
   font-family: Georgia, serif;
   font-size: 86px;
+  line-height: 1;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 180ms ease;
+}
+
+.truews-mark:hover {
+  background: #fff6e8;
+  transform: translateY(-2px);
+  box-shadow: 0 9px 0 #a99c86, 0 13px 20px rgb(66 59 46 / 20%);
+}
+
+.truews-mark:active {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 #a99c86, 0 4px 10px rgb(66 59 46 / 16%);
+}
+
+.truews-mark:focus-visible {
+  outline: 3px solid #50674f;
+  outline-offset: 6px;
 }
 
 .project-art-truews .project-art-label {
@@ -663,8 +692,8 @@ p {
 
 .track-dot {
   position: absolute;
-  top: 38%;
-  left: 34%;
+  top: 0;
+  left: 0;
   width: 15px;
   height: 15px;
   border: 4px solid #f8f3eb;
